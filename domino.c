@@ -91,7 +91,6 @@ int main() {
         }
     } else printf("no groups found.\n");
     printf("press any bottom to terminate.\n");
-    for(int i = 0; i < 28; i++) printf("%d %d %d, ", dice[i][0], dice[i][1], dice[i][2]);
     scanf("%d", &count);
     return 0;
 }
