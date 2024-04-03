@@ -68,7 +68,9 @@ bool fill(int dice[28][3], int order[], int high, int wide, int number, int gues
 }
 
 int main() {
+    printf("input high, wide, edge distance and guess groups (each number splited by space):");
     int high = 5, wide = 5, number = 20, guess = 2;
+    scanf("%d%d%d%d", &high, &wide, &number, &guess);
     int dice[28][3], order[(2 * (high + wide - 2)) * guess];
     int count = 0;
     for(int i=0; i<=6; i++) for(int j=i; j<=6; j++) {
@@ -77,8 +79,7 @@ int main() {
         dice[count][2] = 0; // if 0 then it have not been put, else it put
         count++;
     }
-    printf("input high, wide, edge distance and guess groups (each number splited by space):");
-    scanf("%d%d%d%d", &high, &wide, &number, &guess);
+    
     time_t start = time(NULL);
     bool flag = fill(dice, order, high, wide, number, guess, 0);
     printf("time cost: %d s\n", time(NULL) - start);
@@ -90,6 +91,7 @@ int main() {
         }
     } else printf("no groups found.\n");
     printf("press any bottom to terminate.\n");
+    for(int i = 0; i < 28; i++) printf("%d %d %d, ", dice[i][0], dice[i][1], dice[i][2]);
     scanf("%d", &count);
     return 0;
 }
