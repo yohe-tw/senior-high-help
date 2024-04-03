@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 
 int globalarray[60];
 
@@ -55,10 +56,12 @@ bool fill(int dice[28][3], int order[], int high, int wide, int number, int gues
         order[fillnum + 1] = dice[i][1];
         flag = fill(dice, order, high, wide, number, guess, fillnum + 2);
         if(flag) return true;
-        order[fillnum + 1] = dice[i][0];
-        order[fillnum] = dice[i][1];
-        flag = fill(dice, order, high, wide, number, guess, fillnum + 2);
-        if(flag) return true;
+        if(dice[i][0] != dice[i][1]) {
+            order[fillnum + 1] = dice[i][0];
+            order[fillnum] = dice[i][1];
+            flag = fill(dice, order, high, wide, number, guess, fillnum + 2);
+            if(flag) return true;    
+        }
         dice[i][2] = 0;
     }
     return false;
@@ -76,7 +79,9 @@ int main() {
     }
     printf("input high, wide, edge distance and guess groups (each number splited by space):");
     scanf("%d%d%d%d", &high, &wide, &number, &guess);
+    time_t start = time(NULL);
     bool flag = fill(dice, order, high, wide, number, guess, 0);
+    printf("time cost: %d s\n", time(NULL) - start);
     if(flag) {
         printf("group found, one of the group:\n");
         for(int i = 0; i < guess; i++) {
